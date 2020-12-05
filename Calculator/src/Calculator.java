@@ -22,6 +22,12 @@ public class Calculator implements ActionListener {
 	
 	static JTextField box;
 	
+	static Calculator calc = new Calculator();
+	
+	private String answer;
+	
+	private String input;
+	
 	
 	public Calculator(){
 		
@@ -48,7 +54,7 @@ public class Calculator implements ActionListener {
 		JButton clear = new JButton("CLEAR");
 		JButton enter = new JButton("ENTER");
 		
-		box = new JTextField();
+		box = new JTextField(answer);
 		box.setEditable(false);
 		
 		// this prints in the box box.setText();
@@ -83,6 +89,24 @@ public class Calculator implements ActionListener {
 		frame.setTitle("Gui");
 		frame.pack();
 		frame.setVisible(true);
+		
+		zero.addActionListener(calc);
+		one.addActionListener(calc);
+		two.addActionListener(calc);
+		three.addActionListener(calc);
+		four.addActionListener(calc);
+		five.addActionListener(calc);
+		six.addActionListener(calc);
+		seven.addActionListener(calc);
+		eight.addActionListener(calc);
+		nine.addActionListener(calc);
+		add.addActionListener(calc);
+		subtract.addActionListener(calc);
+		multiply.addActionListener(calc);
+		divide.addActionListener(calc);
+		clear.addActionListener(calc);
+		decimal.addActionListener(calc);
+		enter.addActionListener(calc);
 	}
 
 	public static void main(String[] args) {
@@ -93,7 +117,10 @@ public class Calculator implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		count++;
-		label.setText("Number of clicks: " + count);
+		input = e.getActionCommand();
+		box.setText(input);
+		
+		
 		
 	}
 
