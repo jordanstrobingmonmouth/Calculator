@@ -17,23 +17,22 @@ public class Calculator implements ActionListener {
 	
 	private JLabel label;
 	
-	private JFrame frame;
+	private static JFrame frame;
 	
-	private JPanel panel;
+	private static JPanel panel;
 	
 	static JTextField box;
-	
-	static Calculator calc = new Calculator();
 	
 	private String answer;
 	
 	private static String input;
 	
-	private static String solution1, solution2, solution3 = "";
+	private static String solution1, solution2, solution3;
 	
-	
-	public Calculator(){
-		
+	public static void main(String[] args) {
+		System.out.println();
+		Calculator calc = new Calculator();
+		solution1 = solution2 = solution3 = "";
 		frame = new JFrame();
 		
 		//JButton button = new JButton("Click");
@@ -59,7 +58,7 @@ public class Calculator implements ActionListener {
 		
 		//answer = (String) solution;
 		
-		box = new JTextField(answer);
+		box = new JTextField();
 		box.setEditable(false);
 		
 		// this prints in the box box.setText();
@@ -116,7 +115,13 @@ public class Calculator implements ActionListener {
 		enter.addActionListener(calc);
 		
 		
+		
 	}
+	
+	
+	//public Calculator(){
+		
+	
 
 	
 
@@ -200,55 +205,8 @@ public class Calculator implements ActionListener {
         } 
     } 
 		
-		
-		
-		
-		
-		
 	
-	
-	/**public static void solve(String calculation) {
-		char[] array = calculation.toCharArray();
-		String stringFirst = "";
-		String stringSecond = "";
-		String stringThird = "";
-		
-		for(int i=0; i<array.length; i++) {
-			if ((array[i] >= '0' && array[i] <= '9') || (array[i] == '.')) {
-				if (stringThird.isEmpty()) {
-					stringFirst += array[i];
-				}
-				else {
-					stringSecond += array[i];
-				}
-				
-			}
-			if ((array[i] == '+') || (array[i] == '-') || (array[i] == '/') || (array[i] == '*')){
-				stringThird += array[i];
-			}
-		}
-		
-		if (stringThird.equalsIgnoreCase("+")) {
-			solution = Double.parseDouble(stringFirst) + Double.parseDouble(stringSecond);
-		}
-		
-		else if (stringThird.equalsIgnoreCase("-")) {
-			solution = Double.parseDouble(stringFirst) - Double.parseDouble(stringSecond);
-		}
-		
-		else if (stringThird.equalsIgnoreCase("*")) {
-			solution = Double.parseDouble(stringFirst) * Double.parseDouble(stringSecond);
-		}
-		
-		else if (stringThird.equalsIgnoreCase("/")) {
-			solution = Double.parseDouble(stringFirst) / Double.parseDouble(stringSecond);
-		}
-		
-		System.out.println(solution);
-	}*/
-	public static void main(String[] args) {
-		System.out.println(solution1+solution2+solution3);
 	
 
 	}
-	}
+	
