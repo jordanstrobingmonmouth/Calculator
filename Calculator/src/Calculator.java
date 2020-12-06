@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,9 @@ public class Calculator implements ActionListener {
 	
 	private String answer;
 	
-	private String input;
+	private static String input;
+	
+	private static String solution1, solution2, solution3 = "";
 	
 	
 	public Calculator(){
@@ -51,8 +54,10 @@ public class Calculator implements ActionListener {
 		JButton multiply = new JButton("*");
 		JButton divide = new JButton("/");
 		JButton decimal = new JButton(".");
-		JButton clear = new JButton("CLEAR");
-		JButton enter = new JButton("ENTER");
+		JButton clear = new JButton("C");
+		JButton enter = new JButton("=");
+		
+		//answer = (String) solution;
 		
 		box = new JTextField(answer);
 		box.setEditable(false);
@@ -81,6 +86,7 @@ public class Calculator implements ActionListener {
 		panel.add(enter);
 		
 		
+		
 		panel.setBorder(BorderFactory.createEmptyBorder(60,60,40,60));
 		panel.setLayout(new GridLayout(0,4));
 		
@@ -89,6 +95,7 @@ public class Calculator implements ActionListener {
 		frame.setTitle("Gui");
 		frame.pack();
 		frame.setVisible(true);
+		
 		
 		zero.addActionListener(calc);
 		one.addActionListener(calc);
@@ -107,21 +114,141 @@ public class Calculator implements ActionListener {
 		clear.addActionListener(calc);
 		decimal.addActionListener(calc);
 		enter.addActionListener(calc);
+		
+		
 	}
 
-	public static void main(String[] args) {
-		new Calculator();
-
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		count++;
+		//count++;
 		input = e.getActionCommand();
-		box.setText(input);
+		//box.setText(input);
+		
+		  
+        // if the value is a number 
+        if ((input.charAt(0) >= '0' && input.charAt(0) <= '9') || input.charAt(0) == '.') { 
+            // if operand is present then add to second no 
+            if (!solution2.equals("")) 
+                solution3 = solution3 + input; 
+            else
+                solution1 = solution1 + input; 
+  
+            // set the value of text 
+            box.setText(solution1 + solution2 + solution3); 
+        } 
+        else if (input.charAt(0) == 'C') { 
+            // clear the one letter 
+            solution1 = solution2 = solution3 = ""; 
+  
+            // set the value of text 
+            box.setText(solution1 + solution2 + solution3); 
+        } 
+        else if (input.charAt(0) == '=') { 
+  
+            double x; 
+  
+            // store the value in 1st 
+            if (solution2.equals("+")) 
+                x = (Double.parseDouble(solution1) + Double.parseDouble(solution3)); 
+            else if (solution2.equals("-")) 
+                x = (Double.parseDouble(solution1) - Double.parseDouble(solution3)); 
+            else if (solution2.equals("/")) 
+                x = (Double.parseDouble(solution1) / Double.parseDouble(solution3)); 
+            else
+                x = (Double.parseDouble(solution1) * Double.parseDouble(solution3)); 
+  
+            // set the value of text 
+            box.setText(solution1 + solution2 + solution3 + "=" + x); 
+  
+            // convert it to string 
+            solution1 = Double.toString(x); 
+  
+            solution2 = solution3 = ""; 
+        } 
+        else { 
+            // if there was no operand 
+            if (solution2.equals("") || solution3.equals("")) 
+            	solution2 = input; 
+            // else evaluate 
+            else { 
+                double x; 
+  
+                // store the value in 1st 
+                if (solution2.equals("+")) 
+                    x = (Double.parseDouble(solution1) + Double.parseDouble(solution3)); 
+                else if (solution2.equals("-")) 
+                    x = (Double.parseDouble(solution1) - Double.parseDouble(solution3)); 
+                else if (solution2.equals("/")) 
+                    x = (Double.parseDouble(solution1) / Double.parseDouble(solution3)); 
+                else
+                    x = (Double.parseDouble(solution1) * Double.parseDouble(solution3)); 
+  
+                // convert it to string 
+                solution1 = Double.toString(x); 
+  
+                // place the operator 
+                solution2 = input; 
+  
+                // make the operand blank 
+                solution3 = ""; 
+            } 
+  
+            // set the value of text 
+            box.setText(solution1 + solution2 + solution3);
+        } 
+    } 
 		
 		
 		
-	}
+		
+		
+		
+	
+	
+	/**public static void solve(String calculation) {
+		char[] array = calculation.toCharArray();
+		String stringFirst = "";
+		String stringSecond = "";
+		String stringThird = "";
+		
+		for(int i=0; i<array.length; i++) {
+			if ((array[i] >= '0' && array[i] <= '9') || (array[i] == '.')) {
+				if (stringThird.isEmpty()) {
+					stringFirst += array[i];
+				}
+				else {
+					stringSecond += array[i];
+				}
+				
+			}
+			if ((array[i] == '+') || (array[i] == '-') || (array[i] == '/') || (array[i] == '*')){
+				stringThird += array[i];
+			}
+		}
+		
+		if (stringThird.equalsIgnoreCase("+")) {
+			solution = Double.parseDouble(stringFirst) + Double.parseDouble(stringSecond);
+		}
+		
+		else if (stringThird.equalsIgnoreCase("-")) {
+			solution = Double.parseDouble(stringFirst) - Double.parseDouble(stringSecond);
+		}
+		
+		else if (stringThird.equalsIgnoreCase("*")) {
+			solution = Double.parseDouble(stringFirst) * Double.parseDouble(stringSecond);
+		}
+		
+		else if (stringThird.equalsIgnoreCase("/")) {
+			solution = Double.parseDouble(stringFirst) / Double.parseDouble(stringSecond);
+		}
+		
+		System.out.println(solution);
+	}*/
+	public static void main(String[] args) {
+		System.out.println(solution1+solution2+solution3);
+	
 
-}
+	}
+	}
