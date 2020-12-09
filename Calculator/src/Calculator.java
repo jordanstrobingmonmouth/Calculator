@@ -1,21 +1,14 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-public class Calculator implements ActionListener {
+
+
+
+public class Calculator extends JFrame implements ActionListener {
 	
-	int count = 0;
-	
-	private JLabel label;
+
 	
 	private static JFrame frame;
 	
@@ -23,21 +16,27 @@ public class Calculator implements ActionListener {
 	
 	static JTextField box;
 	
-	private String answer;
-	
 	private static String input;
 	
-	private static String solution1, solution2, solution3;
+	private static String answer1, answer2, answer3;
 	
+	
+	/*
+	 *the main method creates the GUI and it's buttons
+	 */
 	public static void main(String[] args) {
-		System.out.println();
+		
+		//this creates the calculator object
 		Calculator calc = new Calculator();
-		solution1 = solution2 = solution3 = "";
+		
+		//this sets all the the inputs to empty
+		answer1 = answer2 = answer3 = "";
+		
+		//this creates the frame
 		frame = new JFrame();
 		
-		//JButton button = new JButton("Click");
-		//button.addActionListener(this);
 		
+		//this creates the buttons
 		JButton zero = new JButton("0");
 		JButton one = new JButton("1");
 		JButton two = new JButton("2");
@@ -56,15 +55,14 @@ public class Calculator implements ActionListener {
 		JButton clear = new JButton("C");
 		JButton enter = new JButton("=");
 		
-		//answer = (String) solution;
-		
+		//this create
 		box = new JTextField();
 		box.setEditable(false);
 		
 		// this prints in the box box.setText();
 		
 		panel = new JPanel();
-		//panel.add(button);
+		//this adds the buttons to the panel, 'box' is where the input numbers go
 		panel.add(box);
 		panel.add(zero);
 		panel.add(one);
@@ -84,18 +82,21 @@ public class Calculator implements ActionListener {
 		panel.add(divide);
 		panel.add(enter);
 		
-		
-		
-		panel.setBorder(BorderFactory.createEmptyBorder(60,60,40,60));
+		//this makes the background color and the size of the border, as well as orders the buttons
+		panel.setBackground(Color.gray); 
+		panel.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
 		panel.setLayout(new GridLayout(0,4));
 		
+		//this create the frame
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Gui");
+		frame.setTitle("Calculator");
 		frame.pack();
 		frame.setVisible(true);
 		
+
 		
+		//this makes the buttons in the calculator give input;
 		zero.addActionListener(calc);
 		one.addActionListener(calc);
 		two.addActionListener(calc);
@@ -119,94 +120,95 @@ public class Calculator implements ActionListener {
 	}
 	
 	
-	//public Calculator(){
+	
 		
 	
 
 	
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//count++;
-		input = e.getActionCommand();
-		//box.setText(input);
+	
+public void actionPerformed(ActionEvent a) {
+		
+		input = a.getActionCommand();
+		
 		
 		  
-        // if the value is a number 
+        // to check if input is a number or decimal
         if ((input.charAt(0) >= '0' && input.charAt(0) <= '9') || input.charAt(0) == '.') { 
-            // if operand is present then add to second no 
-            if (!solution2.equals("")) 
-                solution3 = solution3 + input; 
+        	
+            //Check for input to answer2  
+            if (!answer2.equals("")) 
+            	
+            	answer3 = answer3 + input; 
             else
-                solution1 = solution1 + input; 
+            	answer1 = answer1 + input; 
   
-            // set the value of text 
-            box.setText(solution1 + solution2 + solution3); 
+            // add the answer to the white box
+            box.setText(answer1 + answer2 + answer3); 
         } 
         else if (input.charAt(0) == 'C') { 
-            // clear the one letter 
-            solution1 = solution2 = solution3 = ""; 
+        	
+            // If character is C, screen will be cleared
+        	answer1 = answer2 = answer3 = ""; 
   
-            // set the value of text 
-            box.setText(solution1 + solution2 + solution3); 
+            // add the answer to the white box
+            box.setText(answer1 + answer2 + answer3); 
         } 
+            // If character is '='
         else if (input.charAt(0) == '=') { 
-  
+            // store final answer as x
             double x; 
   
-            // store the value in 1st 
-            if (solution2.equals("+")) 
-                x = (Double.parseDouble(solution1) + Double.parseDouble(solution3)); 
-            else if (solution2.equals("-")) 
-                x = (Double.parseDouble(solution1) - Double.parseDouble(solution3)); 
-            else if (solution2.equals("/")) 
-                x = (Double.parseDouble(solution1) / Double.parseDouble(solution3)); 
+            // If operator is addition, subtraction, multiplication, or division, final solution will change 
+            // and convert to double to do operation.
+            
+            if (answer2.equals("+")) 
+                x = (Double.parseDouble(answer1) + Double.parseDouble(answer3)); 
+            else if (answer2.equals("-")) 
+                x = (Double.parseDouble(answer1) - Double.parseDouble(answer3)); 
+            else if (answer2.equals("/")) 
+                x = (Double.parseDouble(answer1) / Double.parseDouble(answer3)); 
             else
-                x = (Double.parseDouble(solution1) * Double.parseDouble(solution3)); 
+                x = (Double.parseDouble(answer1) * Double.parseDouble(answer3)); 
   
-            // set the value of text 
-            box.setText(solution1 + solution2 + solution3 + "=" + x); 
+            // add the answer to the white box
+            box.setText(answer1 + answer2 +answer3 + "=" + x); 
   
-            // convert it to string 
-            solution1 = Double.toString(x); 
+            // Change answer1 to the final answer and makes answer 2 and 3 empty.
+            answer1 = Double.toString(x); 
   
-            solution2 = solution3 = ""; 
+            answer2 = answer3 = ""; 
         } 
         else { 
-            // if there was no operand 
-            if (solution2.equals("") || solution3.equals("")) 
-            	solution2 = input; 
-            // else evaluate 
+            // Check to see if answer 2 or answer 3 is empty.
+            if (answer2.equals("") || answer3.equals("")) 
+            	answer2 = input; 
+            // If it's not empty
             else { 
+            	// x is final answer.
                 double x; 
   
-                // store the value in 1st 
-                if (solution2.equals("+")) 
-                    x = (Double.parseDouble(solution1) + Double.parseDouble(solution3)); 
-                else if (solution2.equals("-")) 
-                    x = (Double.parseDouble(solution1) - Double.parseDouble(solution3)); 
-                else if (solution2.equals("/")) 
-                    x = (Double.parseDouble(solution1) / Double.parseDouble(solution3)); 
+                // this does the operation.
+                if (answer2.equals("+")) 
+                    x = (Double.parseDouble(answer1) + Double.parseDouble(answer3)); 
+                else if (answer2.equals("-")) 
+                    x = (Double.parseDouble(answer1) - Double.parseDouble(answer3)); 
+                else if (answer2.equals("/")) 
+                    x = (Double.parseDouble(answer1) / Double.parseDouble(answer3)); 
                 else
-                    x = (Double.parseDouble(solution1) * Double.parseDouble(solution3)); 
+                    x = (Double.parseDouble(answer1) * Double.parseDouble(answer3)); 
   
-                // convert it to string 
-                solution1 = Double.toString(x); 
+                
+                answer1 = Double.toString(x); 
   
-                // place the operator 
-                solution2 = input; 
-  
-                // make the operand blank 
-                solution3 = ""; 
+                answer2 = input; 
+                
+                answer3 = ""; 
             } 
   
-            // set the value of text 
-            box.setText(solution1 + solution2 + solution3);
-        } 
+            // add the answer to the white box
+            box.setText(answer1 + answer2 + answer3);
+        } 	
     } 
-		
-	
-	
-
-	}
+}	
 	
